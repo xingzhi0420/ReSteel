@@ -1,0 +1,30 @@
+import os
+import cv2
+import numpy as np
+import sqlite3
+import ezdxf
+from shapely.geometry import Polygon
+from rectpack import newPacker
+import matplotlib.pyplot as plt
+from inbound.config import MIN_RECT_SIZE_MM, REAL_P1P2_DISTANCE_MM
+from inbound.image_processing import processing
+import os
+
+# 设置输入输出路径
+image_path = "test2.jpg"  # 测试图像
+dxf_intermediate_path = "out/intermediate.dxf"
+dxf_intermediate_scaled = "out/scaled.dxf"
+dxf_output_path = "out/final_output.dxf"
+
+# 创建输出目录
+os.makedirs("out", exist_ok=True)
+pg= [(np.array([70, 80, 80]), np.array([85, 255, 255]))] 
+# 调用处理流程
+final_dxf_path, max_rectangles = processing(
+    image_path,
+    dxf_intermediate_path,
+    dxf_intermediate_scaled,
+    dxf_output_path,
+    p2=pg
+)
+
